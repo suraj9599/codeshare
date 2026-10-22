@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
+const API_URL = import.meta.env.API_URL;
 
 // const CodeInput = () => {
 //     const [code, setCode] = useState('');
@@ -58,8 +59,9 @@ const CodeInput = () => {
 
   const handleSubmit = async () => {
     try {
-      const response = await axios.post('http://localhost:5000/api/save', { code });
-      setGeneratedLink(`http://localhost:5173/view/${response.data.codeId}`);
+      const response = await axios.post(`${API_URL}/api/save`, { code });
+      const baseUrl = window.location.origin; 
+      setGeneratedLink(`${baseUrl}/view/${response.data.codeId}`);
     } catch (error) {
       console.error("Error saving code:", error);
     }
